@@ -41,5 +41,5 @@ func TestHandleHome(t *testing.T) {
 	w := httptest.NewRecorder()
 	router.HandleHome(w, r)
 
-	is.Equal(w.Code, http.StatusBadRequest) // Expect status code 200
+	is.Equal(w.Code, http.StatusOK) // Expect status code 200
 }
