@@ -37,5 +37,5 @@ func (router *Router) Logger(next http.HandlerFunc) http.HandlerFunc {
 func (router *Router) HandleHome(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/plain; charset=utf-8")
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("Hello world!"))
+	w.Write([]byte("Hello POLYTECH!"))
 }
