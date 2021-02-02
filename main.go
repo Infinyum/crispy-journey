@@ -1,7 +1,7 @@
 package main
 
 import (
-	"crispy-journey/routes"
+	"crispy-journey/router"
 	"crispy-journey/server"
 	"log"
 	"net/http"
@@ -14,13 +14,13 @@ func main() {
 	logger := log.New(os.Stdout, "[CRISPY-JOURNEY] ", log.Ltime|log.Lshortfile)
 
 	// Set up the router
-	router := routes.NewRouter(logger)
+	router := router.NewRouter(logger)
 	mux := http.NewServeMux()
 	router.AddRoutes(mux)
 
 	s := server.New(mux, serverAddr)
 
-	logger.Printf("Server starting at %s\n", serverAddr)
+	logger.Printf("Server starting on %s\n", serverAddr)
 	err := s.ListenAndServe()
 	if err != nil {
 		logger.Fatalf("Server failed to start: %v", err)

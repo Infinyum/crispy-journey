@@ -1,5 +1,5 @@
-// Package routes provides all the routing logic for the web server.
-package routes
+// Package router provides all the routing logic for the web server.
+package router
 
 import (
 	"log"
@@ -7,11 +7,12 @@ import (
 	"time"
 )
 
+// Router represents a router with embedded logger
 type Router struct {
 	logger *log.Logger
 }
 
-// NewRouter creates a variable of Router type
+// NewRouter creates a variable of Router type with embedded logger
 func NewRouter(logger *log.Logger) *Router {
 	return &Router{
 		logger: logger,
@@ -35,6 +36,6 @@ func (router *Router) Logger(next http.HandlerFunc) http.HandlerFunc {
 // HandleHome handles home page at path /
 func (router *Router) HandleHome(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/plain; charset=utf-8")
-	w.WriteHeader(http.StatusOK)
+	w.WriteHeader(http.StatusBadRequest)
 	w.Write([]byte("Hello world!"))
 }
