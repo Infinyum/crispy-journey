@@ -5,24 +5,25 @@ import (
 	"crispy-journey/server"
 	"log"
 	"net/http"
-	"os"
 )
 
-const serverAddr = "localhost:8080"
+const serverAddr = ":8080"
 
 func main() {
-	logger := log.New(os.Stdout, "[CRISPY-JOURNEY] ", log.Ltime|log.Lshortfile)
+	log.SetPrefix("[CRISPY-JOURNEY] ")
+	log.SetFlags(log.Ltime)
 
-	// Set up the router
-	router := router.NewRouter(logger)
+	// Use custom "router" package to have all the routes in the same file
+	router := router.NewRouter()
 	mux := http.NewServeMux()
 	router.AddRoutes(mux)
 
+	// Use custom "server" package to configure http.Server with TLS
 	s := server.New(mux, serverAddr)
 
-	logger.Printf("Server starting on %s\n", serverAddr)
+	log.Printf("Server starting on %s\n", serverAddr)
 	err := s.ListenAndServe()
 	if err != nil {
-		logger.Fatalf("Server failed to start: %v", err)
+		log.Fatalf("Server failed to start: %v", err)
 	}
 }
