@@ -8,7 +8,7 @@ import (
 )
 
 // New creates the server with TLS configuration
-func New(r *http.ServeMux, serverAddress string) *http.Server {
+func New(mux *http.ServeMux, serverAddress string) *http.Server {
 	// See https://blog.cloudflare.com/exposing-go-on-the-internet/ for details
 	// about these settings
 	tlsConfig := &tls.Config{
@@ -18,15 +18,12 @@ func New(r *http.ServeMux, serverAddress string) *http.Server {
 		// Only use curves which have assembly implementations
 		CurvePreferences: []tls.CurveID{
 			tls.CurveP256,
-			tls.X25519, // Go 1.8 only
 		},
 
 		MinVersion: tls.VersionTLS12,
 		CipherSuites: []uint16{
 			tls.TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,
 			tls.TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,
-			tls.TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,
-			tls.TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,
 			tls.TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
 			tls.TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,
 		},
@@ -37,7 +34,7 @@ func New(r *http.ServeMux, serverAddress string) *http.Server {
 		WriteTimeout: 10 * time.Second,
 		IdleTimeout:  120 * time.Second,
 		TLSConfig:    tlsConfig,
-		Handler:      r,
+		Handler:      mux,
 	}
 	return s
 }

@@ -1,12 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: crispy-depl
-  namespace: crispy
+  name: crispy
   labels:
     app: crispy
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: crispy
@@ -18,23 +17,20 @@ spec:
       containers:
       - name: crispy
         image: elabrom/crispy-journey:latest
-        imagePullPolicy: always
+        imagePullPolicy: Always
         ports:
         - containerPort: 8080
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: crispy-svc
-  namespace: crispy
+  name: crispy
   labels:
     app: crispy
 spec:
   selector:
     app: crispy
-  type: LoadBalancer  
   ports:
     - protocol: TCP
-      port: 8080
+      port: 80
       targetPort: 8080
-      nodePort: 30000
