@@ -6,6 +6,10 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /
     kubernetes.io/ingress.class: nginx
 spec:
+  tls:
+  - secretName: crispy-local-tls
+    hosts:
+    - crispy.local
   rules:
   - host: crispy.local
     http:
