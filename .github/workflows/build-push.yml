@@ -31,4 +31,4 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
           image: elabrom/crispy-journey
-          
+          tags: latest
