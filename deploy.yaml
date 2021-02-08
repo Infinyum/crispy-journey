@@ -5,7 +5,7 @@ metadata:
   labels:
     app: crispy
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: crispy
