@@ -1,2 +1,9 @@
+# TLS files
 tls.crt
 tls.key
+
+# Terraform
+.terraform/
+.terraform.lock.hcl
+terraform.tfstate
+terraform.tfstate.backup
