@@ -1,0 +1,2 @@
+[EC2]
+52.90.115.110 ansible_user=ec2-user ansible_python_interpreter=/usr/bin/python
