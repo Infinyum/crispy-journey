@@ -1,9 +1,20 @@
 - name: Install Docker
   hosts: EC2
   tasks:
-  - name: Execute ls
-    shell: ls -lha
-    register: res
-  - name: Print command output
-    debug:
-      var: res.stdout_lines
+  - name: Update all packages
+    become: true
+    yum:
+      update_cache: true
+      name: '*'
+      state: latest
+  - name: Install Docker
+    become: true
+    yum:
+      name: docker
+      state: latest
+  - name: Start Docker as a service
+    become: true
+    systemd:
+      state: started
+      name: docker
+  # sudo usermod -a -G docker ec2-user
