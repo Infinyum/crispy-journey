@@ -11,6 +11,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    strategy:
+      max-parallel: 1
+
     steps:
       - uses: actions/checkout@v2
       
@@ -33,7 +36,12 @@ jobs:
   provision:
     runs-on: ubuntu-latest
 
+    strategy:
+      max-parallel: 1
+
     steps:
+      - uses: actions/checkout@v2
+
       - uses: hashicorp/setup-terraform@v1
         with:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
