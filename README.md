@@ -1,2 +1,3 @@
 # crispy-journey
-Tinkering with Golang and GitHub actions
+
+Tinkering with Golang, GitHub actions and Infrastructure as Code tools
