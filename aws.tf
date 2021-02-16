@@ -1,8 +1,15 @@
 terraform {
+  backend "remote" {
+    organization = "elabrom"
+    workspaces = {
+      name = "crispy"
+    }
+  }
+
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "3.27.0"
+      version = "~> 3.27"
     }
   }
 }
