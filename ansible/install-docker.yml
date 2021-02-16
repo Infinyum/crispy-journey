@@ -4,17 +4,17 @@
   tasks:
   - name: Update all packages
     yum:
-      update_cache: true
       name: '*'
       state: latest
+      update_cache: true
   - name: Install Docker
     yum:
       name: docker
       state: latest
   - name: Start Docker as a service
     systemd:
-      state: started
       name: docker
+      state: started
   - name: Add ec2-user to Docker group
     user:
       name: ec2-user

@@ -52,10 +52,6 @@ resource "aws_instance" "linux" {
 
   security_groups = [aws_security_group.allow_ssh.name]
   key_name        = aws_key_pair.id_rsa.key_name
-
-  tags = {
-    Name = "crispy"
-  }
 }
 
 output "ip" {
