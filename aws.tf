@@ -1,7 +1,7 @@
 terraform {
   backend "remote" {
     organization = "elabrom"
-    workspaces = {
+    workspaces {
       name = "crispy"
     }
   }
@@ -26,6 +26,7 @@ resource "aws_key_pair" "id_rsa" {
 resource "aws_security_group" "allow_ssh" {
   name = "allow_ssh"
 
+  # Allow ssh to the EC2 instance
   ingress {
     cidr_blocks = [
       "0.0.0.0/0"
@@ -35,6 +36,8 @@ resource "aws_security_group" "allow_ssh" {
     protocol  = "tcp"
   }
 
+  # Allow all external traffic from the EC2 instance to the internet
+  # Useful when trying to install packages...
   egress {
     from_port   = 0
     to_port     = 0

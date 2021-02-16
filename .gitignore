@@ -1,7 +1,3 @@
-# TLS files
-tls.crt
-tls.key
-
 # Terraform
 .terraform/
 .terraform.lock.hcl

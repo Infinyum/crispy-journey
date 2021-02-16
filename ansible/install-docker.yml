@@ -1,20 +1,21 @@
 - name: Install Docker
   hosts: EC2
+  become: true
   tasks:
   - name: Update all packages
-    become: true
     yum:
       update_cache: true
       name: '*'
       state: latest
   - name: Install Docker
-    become: true
     yum:
       name: docker
       state: latest
   - name: Start Docker as a service
-    become: true
     systemd:
       state: started
       name: docker
-  # sudo usermod -a -G docker ec2-user
+  - name: Add ec2-user to Docker group
+    user:
+      name: ec2-user
+      groups: docker
