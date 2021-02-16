@@ -30,3 +30,32 @@ jobs:
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
           image: elabrom/crispy-journey
           tags: latest
+  provision:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: hashicorp/setup-terraform@v1
+        with:
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+      
+      - name: terraform fmt
+        id: fmt
+        run: terraform fmt -check
+        continue-on-error: true
+
+      - name: terraform init
+        id: init
+        run: terraform init
+
+      - name: terraform validate
+        id: validate
+        run: terraform validate -no-color
+
+      - name: terraform plan
+        id: plan
+        run: terraform plan -no-color
+        continue-on-error: true
+
+      - run: echo ${{ steps.plan.outputs.stdout }}
+      - run: echo ${{ steps.plan.outputs.stderr }}
+      - run: echo ${{ steps.plan.outputs.exitcode }}
