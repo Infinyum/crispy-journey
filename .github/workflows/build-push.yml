@@ -60,10 +60,8 @@ jobs:
 
       - name: terraform validate
         id: validate
-        #run: terraform validate -no-color
         run: terraform validate
 
       - name: terraform plan
         id: plan
-        #run: terraform plan -no-color
         run: terraform plan

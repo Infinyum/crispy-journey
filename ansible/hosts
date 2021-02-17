@@ -1,2 +1,2 @@
 [EC2]
-54.234.46.128 ansible_user=ec2-user ansible_python_interpreter=/usr/bin/python
+18.234.201.26 ansible_user=ec2-user ansible_python_interpreter=/usr/bin/python
