@@ -26,13 +26,23 @@ resource "aws_key_pair" "id_rsa" {
 resource "aws_security_group" "allow_ssh" {
   name = "allow_ssh"
 
-  # Allow ssh to the EC2 instance
   ingress {
+    description = "Allow ssh to the EC2 instance"
     cidr_blocks = [
       "0.0.0.0/0"
     ]
     from_port = 22
     to_port   = 22
+    protocol  = "tcp"
+  }
+
+  ingress {
+    description = "Allow access to port 80 where web server is deployed"
+    cidr_blocks = [
+      "0.0.0.0/0"
+    ]
+    from_port = 80
+    to_port   = 80
     protocol  = "tcp"
   }
 

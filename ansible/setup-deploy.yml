@@ -1,6 +1,7 @@
 - name: Install Docker
   hosts: EC2
   become: true
+  tags: setup
   tasks:
   - name: Update all packages
     yum:
@@ -27,22 +28,39 @@
     pip:
       name: docker
 
+- name: Fetch Dockerhub credentials
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  tags: deploy
+  tasks:
+  - name: Get password from Vault through API
+    uri:
+      url: http://127.0.0.1:8200/v1/kv/dockerhub
+      method: GET
+      return_content: yes
+      headers:
+        X-Vault-Token: "{{ lookup('env', 'VAULT_TOKEN') }}"
+    register: res
+
 - name: Deploy Docker image
   hosts: EC2
+  gather_facts: false
+  tags: deploy
   tasks:
   - name: Log in to DockerHub
     community.docker.docker_login:
       username: elabrom
-      password: rekcod
+      password: "{{ hostvars.localhost.res.content | from_json | json_query('data.password') }}"
   - name: Start a Docker container
     community.docker.docker_container:
       name: crispy
       state: started
-      image: elabrom/crispy
+      image: elabrom/crispy-journey
       pull: true # Always pull the latest image
       container_default_behavior: no_defaults
       ports:
-        - 8080:8080
+        - 80:8080
   - name: Log out of DockerHub
     community.docker.docker_login:
       state: absent
