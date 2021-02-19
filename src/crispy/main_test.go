@@ -1,8 +1,8 @@
 package main
 
 import (
-	"crispy-journey/router"
-	"crispy-journey/server"
+	"crispy/router"
+	"crispy/server"
 	"net/http"
 	"net/http/httptest"
 	"testing"
