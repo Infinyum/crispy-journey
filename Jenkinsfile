@@ -12,10 +12,7 @@ node {
 
     root = tool name: 'docker', type: 'dockerTool'
 
-    echo "${root}"
-    sh "ls ${root}"
-
-    /*withEnv("PATH+DOCKER=${root}/bin") {
+    withEnv("PATH=${root}/bin") {
         def img = docker.build 'crispy'
-    }*/
+    }
 }
