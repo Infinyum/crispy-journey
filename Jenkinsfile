@@ -9,11 +9,13 @@ pipeline {
                 // Ensure the desired Go version is installed
                 tool name: 'go1.16', type: 'go'
 
+                sh 'go version'
+
                 // Export environment variables pointing to the directory where Go was installed
-                withEnv(["GOROOT=${root}", "PATH+GO=${root}/bin"]) {
+                /*withEnv(["GOROOT=${root}", "PATH+GO=${root}/bin"]) {
                     echo "$GOROOT"
                     sh 'go version'
-                }
+                }*/
             }
         }
     }
