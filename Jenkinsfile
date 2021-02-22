@@ -4,9 +4,7 @@ node {
             env.PATH="${GOPATH}/bin:$PATH"
             
             stage('Go test and build') {
-                steps {
-                    sh 'go version'
-                }
+                sh 'go version'
             }
         }
     }
