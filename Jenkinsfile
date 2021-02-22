@@ -1,11 +1,9 @@
 node {
-    ws('${JENKINS_HOME}/jobs/${JOB_NAME}/builds/${BUILD_ID}/') {
-        withEnv(['GOPATH=${JENKINS_HOME}/jobs/${JOB_NAME}/builds/${BUILD_ID}']) {
-            env.PATH="${GOPATH}/bin:$PATH"
+    // Ensure the desired Go version is installed
+    def root = tool type: 'go', name: 'go1.16'
             
-            stage('Go test and build') {
-                sh 'go version'
-            }
-        }
+    // Export environment variables pointing to the directory where Go was installed
+    withEnv(["GOROOT=${root}", "PATH+GO=${root}/bin"]) {
+        sh 'go version'
     }
 }
