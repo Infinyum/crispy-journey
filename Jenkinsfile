@@ -1,19 +1,14 @@
 pipeline {
     agent any
 
-    stages {
-        stage('Build') {
-            steps {
-                // Ensure the desired Go version is installed
-                tool name: 'go1.16', type: 'go'
-
-                sh '$WORKSPACE'
-
-                // Export environment variables pointing to the directory where Go was installed
-                /*withEnv(["GOROOT=${root}", "PATH+GO=${root}/bin"]) {
-                    echo "$GOROOT"
+    ws('${JENKINS_HOME}/jobs/${JOB_NAME}/builds/${BUILD_ID}/') {
+        withEnv(['GOPATH=${JENKINS_HOME}/jobs/${JOB_NAME}/builds/${BUILD_ID}']) {
+            env.PATH="${GOPATH}/bin:$PATH"
+            
+            stage('Go test and build') {
+                steps {
                     sh 'go version'
-                }*/
+                }
             }
         }
     }
