@@ -4,10 +4,19 @@ node {
             
     // Export environment variables pointing to the directory where Go was installed
     withEnv(["GOROOT=${root}", "PATH+GO=${root}/bin"]) {
-        // Move to directory where Go module is
+        stage 'Testing'
+        
         dir('src/crispy') {
-            sh 'go version'
+            // TODO: static code analysis
             sh 'go test -v'
         }
+
+        stage 'Building Docker image'
+
+        def img = docker.build 'crispy'
+        /*img.inside {
+            sh 'make test'
+        }*/
+
     }
 }
