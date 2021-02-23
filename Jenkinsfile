@@ -12,6 +12,7 @@ pipeline {
         DOCKER_REGISTRY = 'docker.io'
         DOCKER_REGISTRY_NAMESPACE = 'elabrom'
         APP_NAME = 'crispy'
+        PATH+EXTRA = '/usr/local/bin'
     }
 
     stages {
@@ -26,7 +27,7 @@ pipeline {
             }
         }
 
-        stage('Docker build and push') {
+        /*stage('Docker build and push') {
             steps {
                 // Temporarily add Docker to path
                 withEnv(["PATH+DOCKER=/usr/local/bin"]) {
@@ -38,18 +39,18 @@ pipeline {
                     }
                 }
             }
-        }
+        }*/
 
         stage('Deploy to Kubernetes') {
             steps {
-                input('Deploy?')
+                //input('Deploy?')
 
                 // Temporarily add kubectl to path
-                withEnv(["PATH+KUBECTL=/usr/local/bin"]) {
+                //withEnv(["PATH+KUBECTL=/usr/local/bin"]) {
                     withKubeConfig(credentialsId: KUBECONFIG_CREDENTIALS_ID) {
                         sh 'kubectl get nodes'
                     }
-                }
+                //}
             }
         }
     }
