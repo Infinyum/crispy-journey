@@ -32,7 +32,7 @@ pipeline {
                 withEnv(["PATH+DOCKER=/usr/local/bin"]) {
                     sh 'docker build -t $DOCKER_REGISTRY/$DOCKER_REGISTRY_NAMESPACE/$APP_NAME .'
 
-                    withCredentials([usernamePassword(credentialsId: $DOCKER_CREDENTIALS_ID, passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
+                    withCredentials([usernamePassword(credentialsId: DOCKER_CREDENTIALS_ID, passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
                         sh 'echo $DOCKER_PASSWORD | docker login docker.io -u $DOCKER_USERNAME --password-stdin'
                         sh 'docker push $DOCKER_REGISTRY/$DOCKER_REGISTRY_NAMESPACE/$APP_NAME'
                     }
