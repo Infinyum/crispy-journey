@@ -2,7 +2,7 @@ node {
     // Ensure the desired Go version is installed
     def root = tool type: 'go', name: 'go1.16'
             
-    // Export environment variables pointing to the directory where Go was installed
+    // Temporarily add Golang to path 
     withEnv(["GOROOT=${root}", "PATH+GO=${root}/bin"]) {
         dir('src/crispy') {
             // TODO: static code analysis
@@ -10,7 +10,8 @@ node {
         }
     }
 
-    //env.PATH="${root}/bin:$PATH"
-    
-    def img = docker.build 'crispy'
+    // Temporarily add Docker to path
+    withEnv(["PATH+DOCKER=/usr/local/bin"]) {
+        def img = docker.build 'crispy'
+    }
 }
