@@ -8,7 +8,7 @@ pipeline {
 
     environment {
         DOCKER_CREDENTIALS_ID = 'dockerhub'
-        //KUBECONFIG_CREDENTIALS_ID = 'minikube'
+        KUBECONFIG_CREDENTIALS_ID = 'minikube'
         DOCKER_REGISTRY = 'docker.io'
         DOCKER_REGISTRY_NAMESPACE = 'elabrom'
         APP_NAME = 'crispy'
@@ -35,6 +35,19 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: DOCKER_CREDENTIALS_ID, passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
                         sh 'echo $DOCKER_PASSWORD | docker login docker.io -u $DOCKER_USERNAME --password-stdin'
                         sh 'docker push $DOCKER_REGISTRY/$DOCKER_REGISTRY_NAMESPACE/$APP_NAME'
+                    }
+                }
+            }
+        }
+
+        stage('Deploy to Kubernetes') {
+            steps {
+                input('Deploy?')
+
+                // Temporarily add kubectl to path
+                withEnv(["PATH+KUBECTL=/usr/local/bin"]) {
+                    withKubeConfig(credentialsId: KUBECONFIG_CREDENTIALS_ID) {
+                        sh 'kubectl get nodes'
                     }
                 }
             }
