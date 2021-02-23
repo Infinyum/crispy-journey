@@ -10,8 +10,7 @@ node {
         }
     }
 
-    root = tool name: 'docker', type: 'dockerTool'
-    env.PATH="${root}/bin:$PATH"
+    //env.PATH="${root}/bin:$PATH"
     
     def img = docker.build 'crispy'
 }
