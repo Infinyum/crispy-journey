@@ -5,13 +5,14 @@ node {
     // Temporarily add Golang to path 
     withEnv(["GOROOT=${root}", "PATH+GO=${root}/bin"]) {
         dir('src/crispy') {
-            // TODO: static code analysis
             sh 'go test -v'
         }
     }
 
     // Temporarily add Docker to path
     withEnv(["PATH+DOCKER=/usr/local/bin"]) {
-        docker.build('elabrom/crispy').push('latest')
+        docker.withRegistry('dockerhub') {
+            docker.build('elabrom/crispy').push('latest')
+        }
     }
 }
