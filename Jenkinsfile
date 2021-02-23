@@ -12,6 +12,6 @@ node {
 
     // Temporarily add Docker to path
     withEnv(["PATH+DOCKER=/usr/local/bin"]) {
-        def img = docker.build 'crispy'
+        docker.build('crispy').push('latest')
     }
 }
