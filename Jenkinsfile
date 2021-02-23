@@ -8,7 +8,7 @@ node {
 
     // Temporarily add Docker to path
     withEnv(["PATH+DOCKER=/usr/local/bin"]) {
-        docker.withRegistry('https://index.docker.io/v1/', 'dockerhub') {
+        withDockerRegistry(credentialsId: 'dockerhub') {
             docker.build('elabrom/crispy').push('latest')
         }
     }
