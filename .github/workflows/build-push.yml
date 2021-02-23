@@ -28,7 +28,7 @@ jobs:
           registry: docker.io
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
-          image: elabrom/crispy-journey
+          image: elabrom/crispy
           tags: latest
 
   provision:

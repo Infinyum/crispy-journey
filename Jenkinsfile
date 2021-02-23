@@ -12,6 +12,6 @@ node {
 
     // Temporarily add Docker to path
     withEnv(["PATH+DOCKER=/usr/local/bin"]) {
-        docker.build('crispy').push('latest')
+        docker.build('elabrom/crispy').push('latest')
     }
 }
