@@ -1,4 +1,4 @@
-FROM golang:1.16rc1 AS builder
+FROM golang:1.16 AS builder
 
 RUN mkdir /golang
 
@@ -10,6 +10,7 @@ RUN CGO_ENABLED=0 go build -o main .
 # Lightweight image for runtime only
 FROM alpine:latest
 
+COPY --from=builder /golang/static static/
 COPY --from=builder /golang/main .
 
 EXPOSE 8080
