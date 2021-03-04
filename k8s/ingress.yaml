@@ -7,11 +7,11 @@ metadata:
     kubernetes.io/ingress.class: nginx
 spec:
   tls:
-  - secretName: crispy-local-tls
+  - secretName: crispy-com-tls
     hosts:
-    - crispy.local
+    - crispy.com
   rules:
-  - host: crispy.local
+  - host: crispy.com
     http:
       paths:
       - path: /
