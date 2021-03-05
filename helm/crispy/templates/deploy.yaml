@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: crispy
+  labels:
+    app: crispy
+spec:
+  replicas: {{ .Values.replicas }}
+  selector:
+    matchLabels:
+      app: crispy
+  template:
+    metadata:
+      labels:
+        app: crispy
+    spec:
+      containers:
+      - name: crispy
+        image: {{ .Values.dockerImage }}
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: crispy
+  labels:
+    app: crispy
+spec:
+  selector:
+    app: crispy
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
