@@ -5,7 +5,7 @@ metadata:
   labels:
     app: crispy
 spec:
-  replicas: {{ .Values.replicas }}
+  replicas: {{ .Values.deployment.replicas }}
   selector:
     matchLabels:
       app: crispy
@@ -16,21 +16,7 @@ spec:
     spec:
       containers:
       - name: crispy
-        image: {{ .Values.dockerImage }}
+        image: {{ .Values.deployment.dockerImage }}
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: crispy
-  labels:
-    app: crispy
-spec:
-  selector:
-    app: crispy
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 8080

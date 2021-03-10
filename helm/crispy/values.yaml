@@ -1,2 +1,6 @@
-replicas: 1
-dockerImage: elabrom/crispy:latest
+deployment:
+  replicas: 1
+  dockerImage: elabrom/crispy:latest
+service:
+  externalPort: 80
+  containerPort: 8080
