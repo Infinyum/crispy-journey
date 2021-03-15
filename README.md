@@ -17,7 +17,15 @@ Simple web server in Golang used as an excuse to play with different tools
 
 - yaml configuration files to deploy the web server on a Kubernetes cluster (specifically a Minikube instance running locally)
 - Ingress controller to enable HTTPS for the web server, which requires a self-signed certificate
-- May be packaged into a Helm chart in the near future...
+
+# `helm/crispy`
+
+- helm chart for the application
+
+# `pki/`
+
+- Contains resources to install HashiCorp's Consul and Vault to set up an automated public-key infrastructure (PKI)
+- The idea is to automatically generate a TLS certificate to enable HTTPS connection to the deployed web server
 
 # `src/`
 
