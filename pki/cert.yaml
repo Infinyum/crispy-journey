@@ -5,6 +5,7 @@ metadata:
 spec:
   dnsNames:
   - crispy.com
+  commonName: crispy.com
   secretName: crispy-com-tls
   issuerRef:
-    name: self-signed-issuer
+    name: vault-issuer

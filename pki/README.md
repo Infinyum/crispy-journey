@@ -73,7 +73,7 @@ vault write pki/roles/crispy-dot-com \
 
 3. Write out the policy named `crispy` that enables fetching certificates at `pki_int/sign/crispy-dot-com`  
 `vault policy write crispy - <<EOF
-path "pki_int/sign/crispy-dot-com" {
+path "pki/sign/crispy-dot-com" {
     capabilities = ["read", "update"]
 }
 EOF`
