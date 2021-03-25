@@ -20,7 +20,7 @@ jobs:
           go-version: 1.16
 
       - name: Test Go
-        run: go test -v      
+        run: go test -v src/crispy/     
       
       - name: Build and push Docker image
         uses: mr-smithers-excellent/docker-build-push@v5
