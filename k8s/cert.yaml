@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: crispy-com
+  namespace: default
+spec:
+  dnsNames:
+  - crispy.com
+  commonName: crispy.com
+  secretName: crispy-com-tls
+  issuerRef:
+    name: vault-issuer
